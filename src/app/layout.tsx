@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./css/contact.css";
+import "./css/cart.css";
+import "./css/detail.css";
+import "./css/store.css";
+import "./css/infopage.css";
 import SiteHeader from "@/components/SiteHeader";
 
 export const metadata: Metadata = {
@@ -18,4 +23,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+
 
