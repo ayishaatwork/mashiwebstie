@@ -1,16 +1,29 @@
 import Link from "next/link";
+import prisma from "@/lib/prisma";
 
-const PRODUCTS = [
-  { id: 1, name: "Coptic Bound" },
-  { id: 2, name: "Case Bound" },
-  { id: 3, name: "Field Book" },
-];
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-export default function StorePage() {
+type Product = {
+  id: number;
+  name: string;
+};
+
+export default async function StorePage() {
+  const products: Product[] = await prisma.product.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+    orderBy: {
+      id: "asc",
+    },
+  });
+
   return (
     <section className="store-page">
       <div className="product-row">
-        {PRODUCTS.map((product) => (
+        {products.map((product) => (
           <Link
             key={product.id}
             href={`/store/${product.id}`}
