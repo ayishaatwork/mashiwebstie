@@ -28,9 +28,16 @@ model GSMVariant {
 model ColorVariant {
   id        Int        @id @default(autoincrement())
   name      String
+  type      OptionType @default(COLOR)
   soldOut   Boolean   @default(false)
   variant   GSMVariant @relation(fields: [variantId], references: [id])
   variantId Int
+}
+
+enum OptionType {
+  COLOR
+  FORMAT
+  NONE
 }
 
 enum OrderStatus {
@@ -105,4 +112,5 @@ model ContactMessage {
   phone     String?
   message   String
   createdAt DateTime @default(now())
+
 }
