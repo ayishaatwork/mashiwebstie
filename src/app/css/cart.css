@@ -125,6 +125,9 @@
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 64px;
+
+  height: calc(100vh - var(--nav-height) - 40px);
+  overflow: hidden;
 }
 
 .cart-title {
@@ -132,6 +135,12 @@
   margin-bottom: 32px;
   padding:10px 20px;
 }
+
+.cart-left{
+  overflow-y: auto;
+  padding-right: 16px; 
+}
+
 .cart-left .cart-title{
   font-size:40px;
 }
@@ -165,7 +174,11 @@
 }
 
 .cart-right {
+  position:sticky;
+  top: calc(var(--nav-height) + 20px);
+  align-self: start;
   padding-right: 32px;
+  
 }
 
 .order-title {
@@ -202,5 +215,6 @@
   margin-top: 12px;
   opacity: 0.7;
 }
+
 
 
