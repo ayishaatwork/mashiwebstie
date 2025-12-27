@@ -1,3 +1,5 @@
+"use client"
+
 import RotatingText from "@/components/RotatingText";
 import Link from "next/link";
 
@@ -52,7 +54,7 @@ export default function Home() {
               "hand crafted\nby artisans",
               "For artist\non the go",
             ]}
-            interval={3500}
+            targetSelector=".mosaic-item"
             className="mosaic-overlay-text"
           />
 
@@ -104,4 +106,5 @@ export default function Home() {
     </>
   );
 }
+
 
