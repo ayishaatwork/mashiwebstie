@@ -25,6 +25,7 @@ export default async function StorePage() {
   });
 
   return (
+    <>
     <section className="store-page">
       <div className="product-row">
         {products.map((product) => (
@@ -60,7 +61,9 @@ export default async function StorePage() {
 
         <div className="footer-copyright">© 2025 Mashi, Inc.</div>
       </footer>
+    </>
   );
 }
+
 
 
