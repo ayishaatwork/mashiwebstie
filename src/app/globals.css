@@ -542,7 +542,7 @@ a {
 .site-logo-button img,
 .site-logo-button svg {
   display: block;
-  height: 32px;
+  height: 45px;
   width: auto;
 }
 
@@ -597,6 +597,7 @@ a {
     display:block;
   }
 }
+
 
 
 
