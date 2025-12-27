@@ -27,9 +27,9 @@ async function main() {
             price: 600,
             colors: {
               create: [
-                { name: "Lemongrass" },
-                { name: "Terracotta" },
-                { name: "Gulaab" },
+                { name: "Lemongrass", type: "COLOR" },
+                { name: "Terracotta", type: "COLOR" },
+                { name: "Gulaab", type: "COLOR" },
               ],
             },
           },
@@ -38,8 +38,8 @@ async function main() {
             price: 400,
             colors: {
               create: [
-                { name: "Lemongrass" },
-                { name: "Terracotta", soldOut: true },
+                { name: "Lemongrass",type: "COLOR" },
+                { name: "Terracotta",type: "COLOR",soldOut: true },
               ],
             },
           },
@@ -75,9 +75,9 @@ async function main() {
             price: 450,
             colors: {
               create: [
-                { name: "Lemongrass" },
-                { name: "Terracotta" },
-                { name: "Gulaab" },
+                { name: "Lemongrass",type: "COLOR" },
+                { name: "Terracotta",type: "COLOR" },
+                { name: "Gulaab",type: "COLOR" },
               ],
             },
           },
@@ -107,8 +107,6 @@ async function main() {
           {
             gsm: "120 GSM",
             price: 400,
-            colors: {
-              create: [{ name: "Navy" }],
             },
           },
         ],
@@ -139,9 +137,8 @@ async function main() {
             gsm: "50 GSM",
             price: 200,
             colors: {
-              create: [
-                       { name: "COMPACT A3" },
-                       { name: "COMPACT A3" },
+              { name: "COMPACT A3", type: "FORMAT" },
+              { name: "COMPACT A4", type: "FORMAT" },
               ],
             },
           },
@@ -161,3 +158,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
