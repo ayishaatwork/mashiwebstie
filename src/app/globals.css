@@ -539,6 +539,14 @@ a {
   cursor: pointer;
 }
 
+.site-logo-button img,
+.site-logo-button svg {
+  display: block;
+  height: 32px;
+  width: auto;
+}
+
+
 @media (max-width: 768px) {
   /* Hide Store / Collective links on mobile */
   .site-nav-links {
@@ -589,6 +597,7 @@ a {
     display:block;
   }
 }
+
 
 
 
