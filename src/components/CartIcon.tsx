@@ -36,8 +36,9 @@ export default function CartIcon() {
 
   return (
     <Link className="icon-button cart-icon" href="/cart">
-      <img src="/icons/carticon.png" alt="Cart" className="nav-icon" />
+      <img src="/icons/cart.svg" alt="Cart" className="nav-icon" />
       {count > 0 && <span className="cart-badge">{count}</span>}
     </Link>
   );
 }
+
