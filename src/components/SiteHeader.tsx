@@ -16,7 +16,7 @@ export default function SiteHeader() {
           <div className="site-logo-button">
             {/* Desktop: normal link */}
             <Link href="/" className="logo-desktop">
-              <img src="/icons/headerlogo.png" alt="Mashi logo" />
+              <img src="/icons/logo.svg" alt="Mashi logo" />
             </Link>
 
             {/* Mobile: menu toggle */}
@@ -101,3 +101,4 @@ export default function SiteHeader() {
     </header>
   );
 }
+
