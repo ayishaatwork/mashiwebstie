@@ -175,7 +175,7 @@ export default function CartPage() {
 
           <button
             className="checkout-btn"
-            onClick={() => router.push("/payment")}
+            onClick={() => router.push("/checkout")}
           >
             Checkout
           </button>
@@ -191,3 +191,4 @@ export default function CartPage() {
     </main>
   );
 }
+
