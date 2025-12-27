@@ -3,7 +3,7 @@ export type CartItem = {
   name: string;
   price: number;
   image: string;
-  gsm: string;        // ✅ SINGLE SOURCE OF TRUTH
+  gsm: string;
   color: string;
   size: string;
   quantity: number;
@@ -29,5 +29,10 @@ export function getCart(): CartItem[] {
 
 export function saveCart(cart: CartItem[]) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  window.dispatchEvent(new Event("cartUpdated"));
+}
+
+export function clearCart() {
+  localStorage.removeItem(CART_KEY);
   window.dispatchEvent(new Event("cartUpdated"));
 }
