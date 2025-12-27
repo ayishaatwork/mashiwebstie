@@ -519,6 +519,10 @@ a {
   opacity: 0.8;
 }
 
+.page-footer{
+  display: none;
+    }
+
 .logo-desktop {
   display: inline-block;
 }
@@ -576,7 +580,12 @@ a {
   .nav-profile {
     display: none;
   }
+
+  .site-footer{
+    display:block;
+  }
 }
+
 
 
 
