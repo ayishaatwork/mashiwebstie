@@ -14,7 +14,8 @@
 
 /* LEFT — TITLE */
 .titleColumn {
-  position: sticky; /* distance from top (below header) */
+  position: sticky;
+  top:120px;/* distance from top (below header) */
   padding-left: 64px; /* ONLY left offset like design */
   align-self: flex-start;
 }
@@ -146,4 +147,5 @@
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
 
