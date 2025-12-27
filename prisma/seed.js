@@ -3,10 +3,12 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  await prisma.colorVariant.deleteMany();
+  await prisma.gSMVariant.deleteMany();
   await prisma.product.deleteMany();
 
   /* =========================
-     COPTIC BOUND
+     COPTIC BOUND (COLOR OPTIONS)
   ========================= */
   await prisma.product.create({
     data: {
@@ -19,7 +21,7 @@ async function main() {
       ],
       sizes: ["6 INCH X 8 INCH"],
       description:
-        "Hand-stitched with the traditional Coptic binding technique, this sketchbook opens completely flat — perfect for wide spreads and seamless sketching. The exposed spine highlights its handcrafted detail, while the sturdy pages make it ideal for drawing, journaling, or mixed media work. Each book is bound with care, designed to last and to grow beautifully with your creative process.",
+        "Hand-stitched with the traditional Coptic binding technique, this sketchbook opens completely flat — perfect for wide spreads and seamless sketching.",
       variants: {
         create: [
           {
@@ -38,8 +40,8 @@ async function main() {
             price: 400,
             colors: {
               create: [
-                { name: "Lemongrass",type: "COLOR" },
-                { name: "Terracotta",type: "COLOR",soldOut: true },
+                { name: "Lemongrass", type: "COLOR" },
+                { name: "Terracotta", type: "COLOR", soldOut: true },
               ],
             },
           },
@@ -49,7 +51,7 @@ async function main() {
   });
 
   /* =========================
-     CASE BOUND
+     CASE BOUND (COLOR OPTIONS)
   ========================= */
   await prisma.product.create({
     data: {
@@ -66,8 +68,7 @@ async function main() {
       ],
       sizes: ["6 INCH X 8 INCH"],
       description:
-        "Crafted with a classic hardbound cover, this sketchbook is built to last. The case binding keeps your pages secure while giving the book a sturdy, timeless form. It opens neatly and stays flat enough for comfortable sketching and writing. Durable on the outside and smooth on the inside — it’s made to travel with you and hold your ideas for years to come.",
-
+        "Crafted with a classic hardbound cover, this sketchbook is built to last.",
       variants: {
         create: [
           {
@@ -75,9 +76,9 @@ async function main() {
             price: 450,
             colors: {
               create: [
-                { name: "Lemongrass",type: "COLOR" },
-                { name: "Terracotta",type: "COLOR" },
-                { name: "Gulaab",type: "COLOR" },
+                { name: "Lemongrass", type: "COLOR" },
+                { name: "Terracotta", type: "COLOR" },
+                { name: "Gulaab", type: "COLOR" },
               ],
             },
           },
@@ -87,26 +88,29 @@ async function main() {
   });
 
   /* =========================
-     FIELD BOOK
+     FIELD BOOK (NO OPTIONS)
   ========================= */
   await prisma.product.create({
     data: {
       name: "Field Book",
-      images: ["/products/fieldbook/main.png",
-               "/products/fieldbook/orange.png",
-               "/products/fieldbook/black.png",                     
-               "/products/fieldbook/green.png",                     
-               "/products/fieldbook/yellow.png",                     
-               "/products/fieldbook/bundle.png",                     
+      images: [
+        "/products/fieldbook/main.png",
+        "/products/fieldbook/orange.png",
+        "/products/fieldbook/black.png",
+        "/products/fieldbook/green.png",
+        "/products/fieldbook/yellow.png",
+        "/products/fieldbook/bundle.png",
       ],
       sizes: ["4 INCH X 6 INCH"],
       description:
-        "Our pocket size Field Note bundle is a set of four vibrant, everyday notebooks designed for quick ideas, sketches, and thoughts on the go. Each book comes in a bright, cheerful colour, making the set both functional and fun to carry. Compact, lightweight, and easy to slip into any pocket or bag, they are perfect for anyone who loves jotting things down wherever inspiration strikes.",
+        "Pocket-size notebooks designed for quick ideas, sketches, and thoughts on the go.",
       variants: {
         create: [
           {
             gsm: "120 GSM",
             price: 400,
+            colors: {
+              create: [], // IMPORTANT: explicitly empty
             },
           },
         ],
@@ -115,30 +119,31 @@ async function main() {
   });
 
   /* =========================
-     ROUGH PAD
+     ROUGH PAD (FORMAT OPTIONS)
   ========================= */
   await prisma.product.create({
     data: {
       name: "Rough Pad",
-      images: ["/products/roughpad/main.png",
-               "/products/roughpad/book1.png",          
-               "/products/roughpad/book2.png",          
-               "/products/roughpad/book3.png",          
-               "/products/roughpad/book4.png",          
-               "/products/roughpad/book5.png",          
+      images: [
+        "/products/roughpad/main.png",
+        "/products/roughpad/book1.png",
+        "/products/roughpad/book2.png",
+        "/products/roughpad/book3.png",
+        "/products/roughpad/book4.png",
+        "/products/roughpad/book5.png",
       ],
       sizes: ["21.5CM X 28CM", "28CM X 43CM"],
       description:
-        "Crafted with a classic hardbound cover, this sketchbook is built to last. The case binding keeps your pages secure while giving the book a sturdy, timeless form. It opens neatly and stays flat enough for comfortable sketching and writing. Durable on the outside and smooth on the inside — it’s made to travel with you and hold your ideas for years to come.",
-
+        "A large-format rough pad ideal for exploratory sketching and drafting.",
       variants: {
         create: [
           {
             gsm: "50 GSM",
             price: 200,
             colors: {
-              { name: "COMPACT A3", type: "FORMAT" },
-              { name: "COMPACT A4", type: "FORMAT" },
+              create: [
+                { name: "COMPACT A3", type: "FORMAT" },
+                { name: "COMPACT A4", type: "FORMAT" },
               ],
             },
           },
@@ -147,7 +152,7 @@ async function main() {
     },
   });
 
-  console.log("✅ Database seeded with variant-based products");
+  console.log("✅ Database seeded correctly");
 }
 
 main()
@@ -158,4 +163,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
-
