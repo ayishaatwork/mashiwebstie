@@ -1,3 +1,14 @@
+.checkout-form input {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: transparent;
+  color: inherit;
+}
+
+.checkout-form input:focus {
+  outline: none;
+}
+
 .checkout-page {
   padding: 80px 40px 120px;
   color: #000;
@@ -130,3 +141,4 @@
     padding: 18px;
   }
 }
+
