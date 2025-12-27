@@ -18,7 +18,7 @@ export default function SearchToggle() {
         onClick={() => setOpen((v) => !v)}
       >
         <img
-          src="/icons/searchicon.png"
+          src="/icons/search.svg"
           alt="Search"
           className="nav-icon"
         />
@@ -34,3 +34,4 @@ export default function SearchToggle() {
     </div>
   );
 }
+
