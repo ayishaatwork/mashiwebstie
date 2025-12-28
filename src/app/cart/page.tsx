@@ -158,7 +158,7 @@ export default function CartPage() {
             <>
               {cart.map((item) => (
                 <div
-                  key={`${item.id}-${item.gsm}-summary`}
+                  key={`${item.id}-${item.gsm}-${item.color}-${item.size}-summary`}
                   className="order-row"
                 >
                   <span>
@@ -216,3 +216,4 @@ export default function CartPage() {
     </main>
   );
 }
+
