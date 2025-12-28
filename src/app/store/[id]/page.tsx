@@ -1,6 +1,6 @@
 "use client";
 
-import { getCart, saveCart } from "@/lib/cart";
+import { addToCart } from "@/lib/cart";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -40,12 +40,8 @@ export default function ProductPage() {
 
   const [product, setProduct] = useState<Product | null>(null);
   const [imageIndex, setImageIndex] = useState(0);
-  const [selectedVariant, setSelectedVariant] = useState<GSMVariant | null>(
-    null
-  );
-  const [selectedOption, setSelectedOption] = useState<ColorVariant | null>(
-    null
-  );
+  const [selectedVariant, setSelectedVariant] = useState<GSMVariant | null>(null);
+  const [selectedOption, setSelectedOption] = useState<ColorVariant | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -85,6 +81,29 @@ export default function ProductPage() {
     selectedVariant.colors?.filter((o) => o.type === "FORMAT") ?? [];
 
   const hasMultipleGsm = product.variants.length > 1;
+
+  /* ===== VARIANT SELECTION RULE ===== */
+  const requiresOption = colorOptions.length > 0 || formatOptions.length > 0;
+  const isOptionSelected = !requiresOption || selectedOption !== null;
+
+  function handleAddToCart() {
+    if (!product || !selectedVariant) return;
+
+    if (!isOptionSelected) {
+      alert("Please select an option before adding to cart.");
+      return;
+    }
+
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: selectedVariant.price,
+      image: product.images[imageIndex],
+      gsm: selectedVariant.gsm,
+      color: selectedOption?.name ?? "",
+      size: product.sizes[0],
+    });
+  }
 
   return (
     <main className="product-page">
@@ -185,7 +204,11 @@ export default function ProductPage() {
           </div>
 
           {/* ADD TO CART */}
-          <button className="add-to-cart-btn" onClick={handleAddToCart}>
+          <button
+            className="add-to-cart-btn"
+            onClick={handleAddToCart}
+            disabled={!isOptionSelected}
+          >
             Add to Cart
           </button>
 
@@ -194,6 +217,7 @@ export default function ProductPage() {
             <h2 className="product-section-title">Item info</h2>
             <p>SIZE:{product.sizes.join(", ")}</p>
             <p className="product-description">{product.description}</p>
+
             {/* MOBILE IMAGE GALLERY */}
             <div className="mobile-product-gallery">
               {product.images.slice(0, 3).map((img, idx) => (
@@ -206,44 +230,25 @@ export default function ProductPage() {
               ))}
             </div>
           </div>
+
           <footer className="site-footer mobile-footer">
-        <div className="footer-grid">
-          <Link href="/">Home</Link>
-          <Link href="/shipping-and-returns">Shipping and returns</Link>
+            <div className="footer-grid">
+              <Link href="/">Home</Link>
+              <Link href="/shipping-and-returns">Shipping and returns</Link>
+              <Link href="/store">Store</Link>
+              <Link href="/payment-information">Payment Information</Link>
+              <Link href="/collective">Collective</Link>
+              <Link href="/terms-and-conditions">Terms and Conditions</Link>
+              <Link href="/contact">Contact us</Link>
+              <Link href="/privacy-policy">Privacy Policy</Link>
+            </div>
 
-          <Link href="/store">Store</Link>
-          <Link href="/payment-information">Payment Information</Link>
-
-          <Link href="/collective">Collective</Link>
-          <Link href="/terms-and-conditions">Terms and Conditions</Link>
-
-          <Link href="/contact">Contact us</Link>
-          <Link href="/privacy-policy">Privacy Policy</Link>
-        </div>
-
-        <div className="footer-copyright">© 2025 Mashi, Inc.</div>
-      </footer>
+            <div className="footer-copyright">
+              © 2025 Mashi, Inc.
+            </div>
+          </footer>
         </div>
       </div>
     </main>
   );
-
-  function handleAddToCart() {
-    if (!product || !selectedVariant) return;
-
-    const cart = getCart();
-
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: selectedVariant.price,
-      image: product.images[imageIndex],
-      gsm: selectedVariant.gsm,
-      color: selectedOption?.name ?? "",
-      size: product.sizes[0],
-      quantity: 1,
-    });
-
-    saveCart(cart);
-  }
 }
