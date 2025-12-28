@@ -217,6 +217,7 @@
 
   .product-details {
     gap: 24px;
+     padding-right:0px;
   }
 
   .product-header {
@@ -278,3 +279,4 @@
     max-width:100%;
   }
 }
+
