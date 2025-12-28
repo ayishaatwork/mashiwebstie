@@ -1,116 +1,167 @@
-/* ===== PRODUCT DETAIL PAGE ===== */
+/* =========================
+   PRODUCT PAGE — BASE
+   ========================= */
 
 .product-page {
-  font-family:"MashiFont";
-  width:100%;
-  min-height: calc(100vh - var(--nav-height) - 80px);
-  display: flex;
-  align-items: center;
+  font-family: "MashiFont";
+  width: 100%;
+  min-height: calc(100vh - var(--nav-height));
 }
+
+/* =========================
+   DESKTOP LAYOUT
+   ========================= */
 
 .product-layout {
   display: grid;
-  grid-template-columns:1fr 1fr; /* image slightly dominant */
-  gap:100px;                          /* reduced from 80px */
-  width:100%;                 /* tighter container */
-  margin: 0 15px;
-  padding:10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  max-width:100%;
+  margin: 0 auto;
+  padding: 40px 16px;
 }
 
+/* =========================
+   LEFT — IMAGE
+   ========================= */
 
-/* LEFT: images */
 .product-media {
   position: sticky;
-  top:80px;
-  height:85vh;
+  top: var(--nav-height);
+  height: calc(100vh - var(--nav-height));
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding:60px 0px;
+  align-items:flex-start;
+  padding-right:30px;
 }
 
 .product-image {
-  max-width:100%;
+  max-width:80%;
   max-height:100%;
   object-fit: contain;
 }
 
+/* =========================
+   RIGHT — DETAILS
+   ========================= */
 
 .product-details {
   display: flex;
-  width:800px;
-  flex-direction:column;
-  left:0;
-  height:85vh;
+  flex-direction: column;
   gap: 28px;
-  padding:60px;
   padding-right:100px;
 }
 
-/* Name + price */
+/* =========================
+   HEADER (NAME + PRICE)
+   ========================= */
+
 .product-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-bottom:28px;
 }
 
 .product-title {
   font-size: 2rem;
-  font-family:"MashiFontBold";
+  font-family: "MashiFontBold";
 }
 
 .product-price {
   font-size: 2rem;
-  font-family:"MashiFontBold";
+  font-family: "MashiFontBold";
 }
 
+/* =========================
+   META ROWS
+   ========================= */
 
-/* Rows 2–4: meta rows */
 .product-meta-row {
   display: flex;
   flex-direction: column;
-  gap:15px;
+  gap: 15px;
 }
 
-/* colours / sizes pill list */
 .product-badges {
   display: flex;
   flex-wrap: wrap;
-  gap:30px;
-}
-
-.product-badges {
+  gap: 30px;
   text-transform: uppercase;
-  padding: 4px 0px;
 }
 
-/* description */
-.product-description {
-  font-size: 0.85rem;
-  color: var(--color-muted);
+/* =========================
+   COLOR SWATCHES
+   ========================= */
+
+.color-swatch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  height: 40px;
+  border-radius: 90px;
+  cursor: pointer;
 }
 
-/* ADD TO CART BUTTON */
+.color-text {
+  transition: opacity 0.2s ease;
+}
+
+.color-dot {
+  position: absolute;
+  width: 90px;
+  height: 45px;
+  border-radius: 140px / 70px;
+  background-color: var(--swatch-color);
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.color-swatch:hover .color-text,
+.color-swatch.active .color-text {
+  opacity: 0;
+}
+
+.color-swatch:hover .color-dot,
+.color-swatch.active .color-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================
+   GSM / FORMAT BADGES
+   ========================= */
+
+.product-badge {
+  padding: 10px 12px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 140px / 70px;
+  border: 1.5px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.product-badge.active {
+  border-color: #000;
+}
+
+/* =========================
+   ADD TO CART BUTTON
+   ========================= */
+
 .add-to-cart-btn {
   background: transparent;
   border: 1.5px solid #000;
-  color:var(--color-text);
-  align-items: center;
-  /* TRUE OVAL SHAPE */
-  width:550px;          /* stretched horizontally */
-  height:140px;          /* controlled height */
-  border-radius:800px /210px;
-
-  /* TEXT */
-  font-size:3.5rem;
+  color: var(--color-text);
+  width: 550px;
+  height: 140px;
+  border-radius: 800px / 210px;
+  font-size: 3.5rem;
   letter-spacing: 0.02em;
-
-  /* CENTER TEXT */
   display: flex;
   align-items: center;
   justify-content: center;
-
   cursor: pointer;
   font-family: "MashiFont";
   transition: opacity 0.15s ease, transform 0.15s ease;
@@ -124,169 +175,52 @@
   transform: scale(0.98);
 }
 
-.color-swatch.active .color-text {
-  opacity: 0;
-}
+/* =========================
+   DESCRIPTION / INFO
+   ========================= */
 
-.color-swatch.active .color-dot {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.color-swatch {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 90px;
-  height: 40px;
-  border-radius:90px; 
-  cursor: pointer;
-}
-
-.color-text {
-  transition: opacity 0.2s ease;
-}
-
-.color-dot {
-  position: absolute;
-  /* OVAL SHAPE */
-  width:90px;/* stretched horizontally */
-  height:45px;
-  border-radius: 140px/70px; 
-  background-color:var(--swatch-color);
-  opacity: 0;
-  transform: scale(0.85);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.color-swatch:hover .color-text {
-  opacity: 0;
-}
-
-.color-swatch:hover .color-dot {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* GSM pill base */
-.product-badge {
+.product-section-title {
   text-transform: uppercase;
-  padding: 10px 12px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  border-radius: 140px/70px;          /* OVAL */
-  border: 1.5px solid transparent;
-
-  transition: border-color 0.2s ease;
+  font-weight: 300;
 }
 
-.product-section-title{
-  text-transform: uppercase;
-  font-weight:300;
-}
-/* SELECTED GSM */
-.product-badge.active {
-  border-color: #000;
+.product-description {
+  font-size: 0.85rem;
+  color: var(--color-muted);
 }
 
-.mobile-color-slabs {
-  display: none;
-}
-.mobile-product-gallery {
-  display: none;
-}
 .mobile-footer{
   display: none;
 }
 
-@media (max-width: 768px) {
-
-  *{
-    margin:0;
-  }
-  .mobile-color-slabs {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 24px;
-  }
-
-  .color-slab {
-    width: 100%;
-    height: 500px;
-    margin-bottom:10px;
-  }
-  .green-slab {
-    background-color:#9C4134;
-  }
-  .gulaab-slab {
-    background-color:#596B00;
-  }
-  .brown-slab {
-    background-color:#917830;
-  }
-}
+/* =========================
+   MOBILE LAYOUT
+   ========================= */
 
 @media (max-width: 768px) {
-
-  .add-to-cart-btn{
-    width:100%;
-    font-size:2.5rem;
-    border-radius:500px/150px;
-  }
   .product-layout {
-    grid-template-columns:1fr;
-    gap: 24px;
+    grid-template-columns: 1fr;
+    gap: 32px;
     padding:10px;
-    margin:0;
-    width:auto;
-    height:auto;
   }
 
   .product-media {
-    position:static;
-    padding:10px;
+    position: static;
     height: auto;
+    padding:0;
   }
 
   .product-image {
-    width: 100vw;
-    max-height:95vh;
-  }
-  .product-info{
-    text-transform: uppercase;
-    font-weight: 300;
+    width: 100%;
+    max-height: 95vh;
   }
 
-  .product-details{
-    gap:10px;
-    padding:0;
-    width:auto;
-    height:auto;
-  }
-  .add-to-cart-btn {
-    height: 96px;
-
-  }
-   
-  .product-badge{
-    font-size:16px;
+  .product-details {
+    gap: 24px;
   }
 
-  .product-badges{
-    padding:0;
-  }
   .product-header {
     gap: 6px;
-  }
-  .product-meta-row{
-    font-size:12px;
-    gap:10px;
-    padding:0;
-  }
-  .product-description{
-    font-size:14px;
   }
 
   .product-title,
@@ -294,27 +228,53 @@
     font-size: 1.3rem;
   }
 
-  .product-price{
-    padding-right:25px;
-  }
-  .mobile-footer{
-    display: block;
-  }
-
-  .mobile-product-gallery {
-    display: flex;
-    flex-direction: column;
-    gap:10px;
-    margin-top:20px;
+  .add-to-cart-btn {
+    width: 100%;
+    height: 96px;
+    font-size: 2.5rem;
+    border-radius: 500px / 150px;
   }
 
-  .mobile-gallery-image {
-    width: 100vw;
-    max-height:95vh;
-    object-fit: cover;
+  .product-badge {
+    font-size: 16px;
+  }
+
+  .product-meta-row {
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .product-description {
+    font-size: 14px;
   }
 }
 
+/* =========================
+   MOBILE IMAGE GALLERY
+   ========================= */
 
+.mobile-product-gallery {
+  display: none;
+}
 
+@media (max-width: 768px) {
+  .mobile-product-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 32px;
+  }
 
+  .mobile-gallery-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .mobile-footer{
+    display:block;
+  }
+
+  .product-image{
+    max-width:100%;
+  }
+}
