@@ -132,7 +132,7 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .checkout-page {
-    padding: 40px 16px 80px;
+    padding: 20px 16px 80px;
   }
 
   .checkout-section{
@@ -167,7 +167,7 @@
 }
 .pay-button {
   font-family:"MashiFont";
-  margin-top:40px;
+  margin-top:30px;
   width:99%;
   height:105px;
   padding: 22px;
@@ -185,6 +185,7 @@
   
 }
 }
+
 
 
 
