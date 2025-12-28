@@ -182,7 +182,7 @@ export default function CartPage() {
             disabled={isEmpty}
             onClick={() => !isEmpty && router.push("/checkout")}
           >
-            {isEmpty ? "Your cart is empty" : "Checkout"}
+            {isEmpty ? "Empty Cart" : "Checkout"}
           </button>
 
           <div className="order-divider light"/>
@@ -216,4 +216,5 @@ export default function CartPage() {
     </main>
   );
 }
+
 
