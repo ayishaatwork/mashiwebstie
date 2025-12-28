@@ -39,7 +39,7 @@ export default function CollectivePage() {
         <div className="artist-layout">
           {/* LEFT — ARTWORK */}
           <div className="artist-artwork">
-            <img src="icons/art.jpg" alt="Artwork by Priya Kuriyan" />
+            <img src="icons/drawing.jpg" alt="Artwork by Priya Kuriyan" />
           </div>
 
           {/* RIGHT — ARTIST INFO */}
@@ -68,3 +68,4 @@ export default function CollectivePage() {
     </main>
   );
 }
+
