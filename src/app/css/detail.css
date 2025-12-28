@@ -242,7 +242,7 @@
 
   .product-media {
     position:static;
-    padding:0;
+    padding:10px;
     height: auto;
   }
 
@@ -310,4 +310,5 @@
     object-fit: cover;
   }
 }
+
 
