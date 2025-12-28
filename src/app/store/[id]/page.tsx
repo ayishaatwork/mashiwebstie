@@ -8,8 +8,8 @@ import Link from "next/link";
 /* COLOR HEX MAP */
 const COLOR_MAP: Record<string, string> = {
   lemongrass: "#555B29",
-  terracotta: "#603E2F",
-  gulaab: "#93483A",
+  terracotta: "#93483A",
+  gulaab:"#6D4147",
 };
 
 /* TYPES */
@@ -252,3 +252,4 @@ export default function ProductPage() {
     </main>
   );
 }
+
