@@ -6,7 +6,7 @@
 
 /* HERO */
 .collective-hero {
-  height:90vh;
+  height:95vh;
   padding: 80px 60px 40px;
   padding-bottom:0;
 }
@@ -138,3 +138,4 @@ body.collective-theme .site-header {
     font-size:20px;
   }
 }
+
