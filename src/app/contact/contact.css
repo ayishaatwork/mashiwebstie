@@ -72,7 +72,7 @@
   background: transparent;
   font-size: 12px;
   cursor: pointer;
-  color:#fff;
+  color:#000;
   margin-top: 0; /* spacing controlled naturally */
 }
 
@@ -155,4 +155,5 @@
   color: #000;
 }
 }
+
 
