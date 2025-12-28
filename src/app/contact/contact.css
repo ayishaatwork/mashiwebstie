@@ -146,6 +146,7 @@
   .contact-footer {
     margin-top: 32px;
     font-size:10px;
+    gap:10px;
   }
 
   .contact-form input::placeholder,
@@ -155,5 +156,6 @@
   color: #000;
 }
 }
+
 
 
