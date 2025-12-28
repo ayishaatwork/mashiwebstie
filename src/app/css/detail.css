@@ -202,7 +202,7 @@
 
 @media (max-width: 768px) {
 
-  .body{
+  *{
     margin:0;
   }
   .mobile-color-slabs {
@@ -314,6 +314,7 @@
     object-fit: cover;
   }
 }
+
 
 
 
