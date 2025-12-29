@@ -5,7 +5,8 @@
 .product-page {
   font-family: "MashiFont";
   width: 100%;
-  min-height: calc(100vh - var(--nav-height));
+  height:93.5vh;
+  padding:20px;
 }
 
 /* =========================
@@ -14,11 +15,18 @@
 
 .product-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1.1fr;
   gap: 100px;
-  max-width:100%;
-  margin: 0 auto;
-  padding: 40px 16px;
+  width: 100%;
+  margin: 0px;
+  padding:30px 0px;
+
+  /* 👇 THIS is the key */
+  align-items: stretch;
+}
+
+.product-media,.product-details{
+  height:80vh;
 }
 
 /* =========================
@@ -27,16 +35,13 @@
 
 .product-media {
   position: sticky;
-  top: var(--nav-height);
-  height: calc(100vh - var(--nav-height));
   display: flex;
-  align-items:flex-start;
-  padding-right:30px;
+  align-items: flex-start;
 }
 
 .product-image {
-  max-width:80%;
-  max-height:100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
 }
 
@@ -48,11 +53,12 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
-  padding-right:100px;
+  justify-content: space-between;
+  padding-right: 100px;
 }
 
 /* =========================
-   HEADER (NAME + PRICE)
+   HEADER
    ========================= */
 
 .product-header {
@@ -63,7 +69,8 @@
 
 .product-title {
   font-size: 2rem;
-  font-family: "MashiFontBold";
+  font-family:"MashiFontBold";
+  font-weight:100;
 }
 
 .product-price {
@@ -118,10 +125,11 @@
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.color-swatch:hover .color-text,
-.color-swatch.active .color-text {
+.color-swatch:not(.format-swatch):hover .color-text,
+.color-swatch:not(.format-swatch).active .color-text {
   opacity: 0;
 }
+
 
 .color-swatch:hover .color-dot,
 .color-swatch.active .color-dot {
@@ -130,20 +138,29 @@
 }
 
 /* =========================
-   GSM / FORMAT BADGES
+   GSM + FORMAT (TEXT ONLY)
    ========================= */
-
+.product-info{
+  font-size: 1.4rem;
+}
+.color-text.bold {
+  font-weight: 700;
+}
 .product-badge {
-  padding: 10px 12px;
-  font-size: 1.1rem;
+  padding: 0;
+  border: none;
+  font-size: 1.4rem;
   cursor: pointer;
-  border-radius: 140px / 70px;
-  border: 1.5px solid transparent;
-  transition: border-color 0.2s ease;
+  font-weight: 400;
+  transition: font-weight 0.15s ease, opacity 0.15s ease;
+}
+
+.product-badge:hover {
+  font-family:"MashiFontBold";
 }
 
 .product-badge.active {
-  border-color: #000;
+  font-family:"MashiFontBold";
 }
 
 /* =========================
@@ -152,31 +169,39 @@
 
 .add-to-cart-btn {
   background: transparent;
-  border: 1.5px solid #000;
-  color: var(--color-text);
-  width: 550px;
-  height: 140px;
-  border-radius: 800px / 210px;
-  font-size: 3.5rem;
-  letter-spacing: 0.02em;
+  width:570px;
+  align-self: center;
+  height: 135px;
+  border-radius: 850px / 210px;
+  font-size: 3.8rem;
+  font-family: "MashiFont";
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-family: "MashiFont";
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity 0.15s ease;
+  margin-bottom:25px;
 }
 
-.add-to-cart-btn:hover {
+/* Disabled — Select an option */
+.add-to-cart-btn:disabled {
+  border: 1.5px solid #999;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* Active — Add to cart */
+.add-to-cart-btn:not(:disabled) {
+  border: 1.5px solid #000;
+  color: #000;
+}
+
+.add-to-cart-btn:not(:disabled):hover {
   opacity: 0.85;
 }
 
-.add-to-cart-btn:active {
-  transform: scale(0.98);
-}
-
 /* =========================
-   DESCRIPTION / INFO
+   INFO SECTION
    ========================= */
 
 .product-section-title {
@@ -185,11 +210,37 @@
 }
 
 .product-description {
-  font-size: 0.85rem;
+  padding-right:50px;
+  font-size:15px;
   color: var(--color-muted);
 }
 
-.mobile-footer{
+.product-sizes {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 6px;
+  row-gap: 2px;
+  font-size: 18px;
+}
+
+.size-label {
+  grid-row: 1;
+  white-space: nowrap;
+}
+
+.size-value {
+  grid-column: 2;
+}
+
+/* =========================
+   MOBILE FOOTER + GALLERY
+   ========================= */
+
+.mobile-product-gallery {
+  display: none;
+}
+
+.mobile-footer {
   display: none;
 }
 
@@ -198,35 +249,49 @@
    ========================= */
 
 @media (max-width: 768px) {
+
+  .product-page{
+    padding:0;
+  }
   .product-layout {
     grid-template-columns: 1fr;
     gap: 32px;
-    padding:10px;
+    padding: 10px;
   }
 
   .product-media {
     position: static;
     height: auto;
-    padding:0;
   }
 
   .product-image {
-    width: 100%;
+    max-width:100%;
     max-height: 95vh;
   }
 
   .product-details {
+    padding-right: 0;
     gap: 24px;
-     padding-right:0px;
-  }
-
-  .product-header {
-    gap: 6px;
+    height:auto;
   }
 
   .product-title,
   .product-price {
     font-size: 1.3rem;
+  }
+
+  .product-meta-row {
+    gap: 10px;
+    font-size: 12px;
+  }
+
+  .product-badge {
+    font-size: 16px;
+  }
+
+  .product-description {
+    font-size: 14px;
+    padding-right:0px;
   }
 
   .add-to-cart-btn {
@@ -236,29 +301,6 @@
     border-radius: 500px / 150px;
   }
 
-  .product-badge {
-    font-size: 16px;
-  }
-
-  .product-meta-row {
-    gap: 10px;
-    font-size: 12px;
-  }
-
-  .product-description {
-    font-size: 14px;
-  }
-}
-
-/* =========================
-   MOBILE IMAGE GALLERY
-   ========================= */
-
-.mobile-product-gallery {
-  display: none;
-}
-
-@media (max-width: 768px) {
   .mobile-product-gallery {
     display: flex;
     flex-direction: column;
@@ -271,12 +313,9 @@
     height: auto;
     object-fit: cover;
   }
-  .mobile-footer{
-    display:block;
-  }
 
-  .product-image{
-    max-width:100%;
+  .mobile-footer {
+    display: block;
   }
 }
 
