@@ -289,7 +289,7 @@
   padding:0px 10px;
 }
 .order-divider {
-  margin:5px;
+  margin:4px 0px;
 }
 .cart-left .cart-title{
   font-size:1.8rem;
@@ -302,6 +302,7 @@
   font-size:12px;
 }
 }
+
 
 
 
