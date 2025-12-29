@@ -2,6 +2,8 @@
 
 import { useEffect } from "react";
 import styles from "./page.module.css";
+import Link from "next/link";
+
 
 function scrollAllParentsToTop(element: HTMLElement | null) {
   let el: HTMLElement | null = element;
@@ -29,9 +31,9 @@ export default function LegalLayout({
 
   return (
     <>
-    <main className={styles.legalPage}>
+    <section className={styles.legalPage}>
       <div className={styles.legalGrid}>{children}</div>
-    </main>{/* FOOTER — HOME ONLY */}
+    </section>{/* FOOTER — HOME ONLY */}
       <footer className="site-footer">
         <div className="footer-grid">
           <Link href="/">Home</Link>
@@ -49,7 +51,8 @@ export default function LegalLayout({
 
         <div className="footer-copyright">© 2025 Mashi, Inc.</div>
       </footer>
-      </>
+      <>
   );
 }
+
 
