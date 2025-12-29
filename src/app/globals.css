@@ -369,21 +369,21 @@ a {
   }
 }
 
-/* HEADER LAYOUT */
 
 .site-header {
-  position:fixed;
-  width:100%;
-  z-index:100;
+  position: fixed;
+  width: 100%;
+  z-index: 100;
 }
 
 .site-nav {
   width: 100%;
-  padding: 10px 10px; /* left/right padding + a bit at bottom */
+  padding: 10px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   overflow: visible;
+  background: var(--nav-bg);
 }
 
 /* Left side: logo + links */
@@ -409,14 +409,14 @@ a {
 }
 
 .site-nav-links a {
-  font-size:0.8rem;
-  font-family:"MashiFontBold";
+  font-size: 0.8rem;
+  font-family: "MashiFontBold";
 }
 
 /* Right side: icons */
 .site-nav-right {
   display: flex;
-  padding-right:6px;
+  padding-right: 6px;
   align-items: center;
   gap: 11px;
 }
@@ -440,61 +440,16 @@ a {
   padding: 0;
   cursor: pointer;
 }
-/* ================= MOBILE MENU (FULL DESIGN) ================= */
-.mobile-menu {
-  position: fixed;
-  inset: 0;
-  background: #000;
-  color: #fff;
 
-  display: flex;
-  flex-direction: column;
-
-  /* START OFF-SCREEN TO THE LEFT */
-  transform: translateX(-100%);
-  opacity: 1;                 /* keep visible, slide handles motion */
-  pointer-events: none;
-
-  transition: transform 260ms ease;
-  z-index: 9999;
+.logo-desktop {
+  display: inline-block;
 }
 
-.mobile-menu.open {
-  transform: translateX(0);
-  pointer-events: auto;
-}
-
-/* TOP BAR */
-.mobile-menu-top {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-}
-
-.mobile-menu-close {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
-
-/* MAIN LINKS */
-.mobile-menu-main {
-  border-top: 1px solid rgba(255,255,255,0.3);
-}
-
-.mobile-menu-main a {
+.site-logo-button img,
+.site-logo-button svg {
   display: block;
-  padding:14px;
-  font-size: 1rem;
-  text-transform: uppercase;
-  border-bottom: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
-}
-
-/* SPACER (intentional empty space) */
-.mobile-menu-spacer {
-  flex: 1;
+  height: 40px;
+  width: auto;
 }
 
 /* FOOTER AREA */
@@ -557,40 +512,20 @@ a {
   width: auto;
 }
 
-
 @media (max-width: 768px) {
   /* Hide Store / Collective links on mobile */
   .site-nav-links {
-    display: none;
-  }
-
-  .logo-desktop {
-    display: none;
-  }
-
-  .logo-mobile {
-    display:inline-block;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  /* Tighten header spacing for mobile */
-  .site-header {
-    padding-top: 6px;
-  }
-
-  .site-nav {
-    padding: 0 12px;
+    display: flex;
   }
 
   /* Slightly reduce logo size on mobile */
-  .site-logo img {
-    height: 28px;
+  .site-logo-button img {
+    height:32px;
     width: auto;
   }
-
+   .site-nav-left {
+    gap: 16px;
+  }
   /* Keep icons aligned cleanly */
   .site-nav-right {
     gap: 10px;
@@ -600,14 +535,12 @@ a {
     padding: 2px;
   }
 
-  .nav-profile {
-    display: none;
-  }
-
   .site-footer{
     display:block;
   }
 }
+
+
 
 
 
