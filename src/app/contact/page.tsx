@@ -30,12 +30,28 @@ export default function ContactPage() {
           </form>
 
           <div className="contact-footer">
-            <p><span className="contact-bold">EMAIL:</span> create@mashistore.com</p>
-            <p><span className="contact-bold">PHONE:</span> +91 70348 85119</p>
-            <p className="contact-bold">INSTAGRAM</p>
+            <a href="mailto:create@mashistore.com" className="footer-item">
+              <span className="contact-bold footer-label">EMAIL:</span>
+              <span className="footer-value">create@mashistore.com</span>
+            </a>
+
+            <a href="tel:+917034885119" className="footer-item">
+              <span className="contact-bold footer-label">PHONE:</span>
+              <span className="footer-value">+91 70348 85119</span>
+            </a>
+
+            <a
+              href="https://www.instagram.com/mashiartstore?igsh=Zzg5NW8xaG1rcGVs&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-bold footer-instagram"
+            >
+              INSTAGRAM
+            </a>
           </div>
         </div>
       </div>
     </main>
   );
 }
+
