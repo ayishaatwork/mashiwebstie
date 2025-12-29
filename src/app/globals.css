@@ -372,6 +372,7 @@ a {
 
 .site-header {
   position: fixed;
+  background-color:#fff;
   width: 100%;
   z-index: 100;
 }
@@ -539,6 +540,7 @@ a {
     display:block;
   }
 }
+
 
 
 
