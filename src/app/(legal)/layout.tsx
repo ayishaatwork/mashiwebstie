@@ -51,9 +51,10 @@ export default function LegalLayout({
 
         <div className="footer-copyright">© 2025 Mashi, Inc.</div>
       </footer>
-    </>>
+    </>
   );
 }
+
 
 
 
