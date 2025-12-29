@@ -9,7 +9,7 @@ import Link from "next/link";
 const COLOR_MAP: Record<string, string> = {
   lemongrass: "#555B29",
   terracotta: "#93483A",
-  gulaab:"#6D4147",
+  gulaab: "#6D4147",
 };
 
 /* TYPES */
@@ -32,6 +32,7 @@ type ColorVariant = {
   name: string;
   type: "COLOR" | "FORMAT";
   soldOut?: boolean;
+  price?: number;
 };
 
 export default function ProductPage() {
@@ -55,10 +56,8 @@ export default function ProductPage() {
         return res.json();
       })
       .then((data: Product) => {
-        const firstVariant = data.variants[0];
-
         setProduct(data);
-        setSelectedVariant(firstVariant);
+        setSelectedVariant(data.variants[0]);
         setSelectedOption(null);
         setImageIndex(0);
         setLoading(false);
@@ -74,30 +73,24 @@ export default function ProductPage() {
     return <p>{error ?? "Product unavailable"}</p>;
   }
 
-  const colorOptions =
-    selectedVariant.colors?.filter((o) => o.type === "COLOR") ?? [];
-
-  const formatOptions =
-    selectedVariant.colors?.filter((o) => o.type === "FORMAT") ?? [];
-
-  const hasMultipleGsm = product.variants.length > 1;
-
-  /* ===== VARIANT SELECTION RULE ===== */
-  const requiresOption = colorOptions.length > 0 || formatOptions.length > 0;
+  /* OPTIONS */
+  const optionList = selectedVariant.colors ?? [];
+  const requiresOption = optionList.length > 0;
   const isOptionSelected = !requiresOption || selectedOption !== null;
 
-  function handleAddToCart() {
-    if (!product || !selectedVariant) return;
+  /* PRICE */
+  const displayPrice =
+    selectedOption?.type === "FORMAT" && selectedOption.price
+      ? selectedOption.price
+      : selectedVariant.price;
 
-    if (!isOptionSelected) {
-      alert("Please select an option before adding to cart.");
-      return;
-    }
+  function handleAddToCart() {
+    if (!isOptionSelected) return;
 
     addToCart({
       id: product.id,
       name: product.name,
-      price: selectedVariant.price,
+      price: displayPrice,
       image: product.images[imageIndex],
       gsm: selectedVariant.gsm,
       color: selectedOption?.name ?? "",
@@ -121,38 +114,52 @@ export default function ProductPage() {
         <div className="product-details">
           <div className="product-header">
             <h1 className="product-title">{product.name}</h1>
-            <span className="product-price">Rs.{selectedVariant.price}.00</span>
+            <span className="product-price">Rs.{displayPrice}.00</span>
           </div>
 
-          {/* COLORS */}
-          {colorOptions.length > 0 && (
+          {/* COLOR + FORMAT OPTIONS */}
+          {optionList.length > 0 && (
             <div className="product-meta-row">
               <div className="product-badges">
-                {colorOptions.map((color) => {
-                  const key = color.name.toLowerCase().trim();
-                  const colorHex = COLOR_MAP[key] ?? "#000";
+                {optionList.map((opt) => {
+                  const key = opt.name.toLowerCase().trim();
+                  const isActive = selectedOption?.name === opt.name;
 
-                  const imageIdx = product.images.findIndex((img) =>
-                    img.toLowerCase().includes(key)
-                  );
+                  const imageIdx =
+                    opt.type === "COLOR"
+                      ? product.images.findIndex((img) =>
+                          img.toLowerCase().includes(key)
+                        )
+                      : -1;
 
                   return (
                     <div
-                      key={color.name}
+                      key={opt.name}
                       className={`color-swatch ${
-                        selectedOption?.name === color.name ? "active" : ""
-                      } ${color.soldOut ? "sold-out" : ""}`}
+                        isActive ? "active" : ""
+                      } ${opt.type === "FORMAT" ? "format-swatch" : ""}`}
                       style={
-                        { "--swatch-color": colorHex } as React.CSSProperties
+                        opt.type === "COLOR"
+                          ? ({
+                              "--swatch-color": COLOR_MAP[key],
+                            } as React.CSSProperties)
+                          : undefined
                       }
                       onClick={() => {
-                        if (color.soldOut) return;
-                        setSelectedOption(color);
+                        if (opt.soldOut) return;
+                        setSelectedOption(opt);
                         if (imageIdx >= 0) setImageIndex(imageIdx);
                       }}
                     >
-                      <span className="color-text">{color.name}</span>
-                      <span className="color-dot" />
+                      <span
+                        className={`color-text ${
+                          opt.type === "FORMAT" && isActive ? "bold" : ""
+                        }`}
+                      >
+                        {opt.name}
+                      </span>
+
+                      {opt.type === "COLOR" && <span className="color-dot" />}
                     </div>
                   );
                 })}
@@ -160,28 +167,9 @@ export default function ProductPage() {
             </div>
           )}
 
-          {/* FORMAT OPTIONS */}
-          {formatOptions.length > 0 && (
-            <div className="product-meta-row">
-              <div className="product-badges">
-                {formatOptions.map((opt) => (
-                  <span
-                    key={opt.name}
-                    className={`product-badge ${
-                      selectedOption?.name === opt.name ? "active" : ""
-                    }`}
-                    onClick={() => setSelectedOption(opt)}
-                  >
-                    {opt.name}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* GSM */}
           <div className="product-meta-row">
-            {hasMultipleGsm ? (
+            {product.variants.length > 1 ? (
               <div className="product-badges">
                 {product.variants.map((variant) => (
                   <span
@@ -203,53 +191,66 @@ export default function ProductPage() {
             )}
           </div>
 
-          {/* ADD TO CART */}
-          <button
-            className="add-to-cart-btn"
-            onClick={handleAddToCart}
-            disabled={!isOptionSelected}
-          >
-            Add to Cart
-          </button>
-
           {/* INFO */}
           <div className="product-meta-row">
+            <button
+              className="add-to-cart-btn"
+              disabled={!isOptionSelected}
+              onClick={handleAddToCart}
+            >
+              {isOptionSelected ? "Add to Cart" : "Select an option"}
+            </button>
+
             <h2 className="product-section-title">Item info</h2>
-            <p>SIZE:{product.sizes.join(", ")}</p>
+
+            <div className="product-sizes">
+              <span className="size-label">SIZE:</span>
+              {product.sizes.map((size) => (
+                <span key={size} className="size-value">
+                  {size.replace(/\s+/g, "")}
+                </span>
+              ))}
+            </div>
+
             <p className="product-description">{product.description}</p>
 
             {/* MOBILE IMAGE GALLERY */}
             <div className="mobile-product-gallery">
-              {product.images.slice(0, 3).map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img}
-                  alt={`${product.name} detail ${idx + 1}`}
-                  className="mobile-gallery-image"
-                />
-              ))}
+              {product.images
+                .filter((img) => {
+                  const name = img.toLowerCase();
+                  return name.includes("main") || name.includes("book");
+                })
+                .map((img, idx) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`${product.name} detail ${idx + 1}`}
+                    className="mobile-gallery-image"
+                  />
+                ))}
             </div>
           </div>
-
-          <footer className="site-footer mobile-footer">
-            <div className="footer-grid">
-              <Link href="/">Home</Link>
-              <Link href="/shipping-and-returns">Shipping and returns</Link>
-              <Link href="/store">Store</Link>
-              <Link href="/payment-information">Payment Information</Link>
-              <Link href="/collective">Collective</Link>
-              <Link href="/terms-and-conditions">Terms and Conditions</Link>
-              <Link href="/contact">Contact us</Link>
-              <Link href="/privacy-policy">Privacy Policy</Link>
-            </div>
-
-            <div className="footer-copyright">
-              © 2025 Mashi, Inc.
-            </div>
-          </footer>
         </div>
       </div>
+
+      {/* MOBILE FOOTER */}
+      <footer className="site-footer mobile-footer">
+        <div className="footer-grid">
+          <Link href="/">Home</Link>
+          <Link href="/shipping-and-returns">Shipping and returns</Link>
+          <Link href="/store">Store</Link>
+          <Link href="/payment-information">Payment Information</Link>
+          <Link href="/collective">Collective</Link>
+          <Link href="/terms-and-conditions">Terms and Conditions</Link>
+          <Link href="/contact">Contact us</Link>
+          <Link href="/privacy-policy">Privacy Policy</Link>
+        </div>
+
+        <div className="footer-copyright">
+          © 2025 Mashi, Inc.
+        </div>
+      </footer>
     </main>
   );
 }
-
