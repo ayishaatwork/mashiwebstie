@@ -30,6 +30,7 @@ model ColorVariant {
   name      String
   type      OptionType @default(COLOR)
   soldOut   Boolean   @default(false)
+  price     Int?
   variant   GSMVariant @relation(fields: [variantId], references: [id])
   variantId Int
 }
@@ -114,3 +115,4 @@ model ContactMessage {
   createdAt DateTime @default(now())
 
 }
+
