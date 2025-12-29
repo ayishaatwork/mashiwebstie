@@ -195,7 +195,7 @@ export default function CartPage() {
             out to us. We are always happy to help.
           </p>
         </aside>
-        <footer className="site-footer mobile-footer">
+        <footer className="site-footer">
         <div className="footer-grid">
           <Link href="/">Home</Link>
           <Link href="/shipping-and-returns">Shipping and returns</Link>
@@ -216,5 +216,6 @@ export default function CartPage() {
     </main>
   );
 }
+
 
 
