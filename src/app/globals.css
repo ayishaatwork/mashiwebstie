@@ -112,6 +112,7 @@ a {
 
 .site-main {
   flex: 1;
+  padding-top:6.5vh;
 }
 
 .footer-copyright {
@@ -371,15 +372,14 @@ a {
 /* HEADER LAYOUT */
 
 .site-header {
-  position:relative;
-  padding-top: 10px; /* 10px at the top like you wanted */
-  background: #ffffff;
+  position:fixed;
+  width:100%;
   z-index:100;
 }
 
 .site-nav {
   width: 100%;
-  padding: 0 10px 0px; /* left/right padding + a bit at bottom */
+  padding: 10px 10px; /* left/right padding + a bit at bottom */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -608,6 +608,7 @@ a {
     display:block;
   }
 }
+
 
 
 
