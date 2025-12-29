@@ -30,7 +30,7 @@
 .contentColumn {
   max-width: 600px;
   margin-left: auto;   /* THIS is the key line */
-  padding-right:20px;
+  padding-right:40px;
   margin-right:150px; /* keeps it off the edge */
   font-size: 0.95rem;
 }
@@ -147,5 +147,6 @@
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
 
 
