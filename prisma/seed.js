@@ -14,14 +14,14 @@ async function main() {
     data: {
       name: "Coptic Bound",
       images: [
-        "/products/copticbound/main.png",
-        "/products/copticbound/lemongrass.png",
-        "/products/copticbound/terracotta.png",
-        "/products/copticbound/gulaab.png",
+        "/products/copticbound/main.jpg",
+        "/products/copticbound/lemongrass.jpg",
+        "/products/copticbound/terracotta.jpg",
+        "/products/copticbound/gulaab.jpg",
       ],
       sizes: ["6 INCH X 8 INCH"],
       description:
-        "Hand-stitched with the traditional Coptic binding technique, this sketchbook opens completely flat — perfect for wide spreads and seamless sketching.",
+        "Hand-stitched with the traditional Coptic binding technique, this sketchbook opens completely flat — perfect for wide spreads and seamless sketching. The exposed spine highlights its handcrafted detail, while the sturdy pages make it ideal for drawing, journaling, or mixed media work. Each book is bound with care, designed to last and to grow beautifully with your creative process.",
       variants: {
         create: [
           {
@@ -57,18 +57,17 @@ async function main() {
     data: {
       name: "Case Bound",
       images: [
-        "/products/casebound/main.png",
-        "/products/casebound/lemongrass.png",
-        "/products/casebound/terracotta.png",
-        "/products/casebound/gulaab.png",
-        "/products/casebound/book1.png",
-        "/products/casebound/book2.png",
-        "/products/casebound/book3.png",
-        "/products/casebound/book4.png",
+        "/products/casebound/main.jpg",
+        "/products/casebound/lemongrass.jpg",
+        "/products/casebound/terracotta.jpg",
+        "/products/casebound/gulaab.jpg",
+        "/products/casebound/book1.jpg",
+        "/products/casebound/book2.jpg",
+        "/products/casebound/book3.jpg",
       ],
       sizes: ["6 INCH X 8 INCH"],
       description:
-        "Crafted with a classic hardbound cover, this sketchbook is built to last.",
+        "Crafted with a classic hardbound cover, this sketchbook is built to last. The case binding keeps your pages secure while giving the book a sturdy, timeless form. It opens neatly and stays flat enough for comfortable sketching and writing. Durable on the outside and smooth on the inside — it’s made to travel with you and hold your ideas for years to come.",
       variants: {
         create: [
           {
@@ -94,16 +93,16 @@ async function main() {
     data: {
       name: "Field Book",
       images: [
-        "/products/fieldbook/main.png",
-        "/products/fieldbook/orange.png",
-        "/products/fieldbook/black.png",
-        "/products/fieldbook/green.png",
-        "/products/fieldbook/yellow.png",
-        "/products/fieldbook/bundle.png",
+        "/products/fieldbook/main.jpg",
+        "/products/fieldbook/orange.jpg",
+        "/products/fieldbook/black.jpg",
+        "/products/fieldbook/green.jpg",
+        "/products/fieldbook/yellow.jpg",
+        "/products/fieldbook/book1.jpg",
       ],
       sizes: ["4 INCH X 6 INCH"],
       description:
-        "Pocket-size notebooks designed for quick ideas, sketches, and thoughts on the go.",
+        "Our pocket size Field Note bundle is a set of four vibrant, everyday notebooks designed for quick ideas, sketches, and thoughts on the go. Each book comes in a bright, cheerful colour, making the set both functional and fun to carry. Compact, lightweight, and easy to slip into any pocket or bag, they are perfect for anyone who loves jotting things down wherever inspiration strikes.",
       variants: {
         create: [
           {
@@ -118,39 +117,41 @@ async function main() {
     },
   });
 
-  /* =========================
-     ROUGH PAD (FORMAT OPTIONS)
-  ========================= */
-  await prisma.product.create({
-    data: {
-      name: "Rough Pad",
-      images: [
-        "/products/roughpad/main.png",
-        "/products/roughpad/book1.png",
-        "/products/roughpad/book2.png",
-        "/products/roughpad/book3.png",
-        "/products/roughpad/book4.png",
-        "/products/roughpad/book5.png",
-      ],
-      sizes: ["21.5CM X 28CM", "28CM X 43CM"],
-      description:
-        "A large-format rough pad ideal for exploratory sketching and drafting.",
-      variants: {
-        create: [
-          {
-            gsm: "50 GSM",
-            price: 200,
-            colors: {
-              create: [
-                { name: "COMPACT A3", type: "FORMAT" },
-                { name: "COMPACT A4", type: "FORMAT" },
-              ],
-            },
+/* =========================
+   ROUGH PAD (FORMAT OPTIONS — DIFFERENT PRICES)
+========================= */
+await prisma.product.create({
+  data: {
+    name: "Rough Pad",
+    images: [
+      "/products/roughpad/main.jpg",
+      "/products/roughpad/compoundA3.jpg",
+      "/products/roughpad/compoundA4.jpg",
+      "/products/roughpad/book1.jpg",
+      "/products/roughpad/book2.jpg",
+      "/products/roughpad/book3.jpg",
+    ],
+    sizes: ["21.5CM X 28CM", "28CM X 43CM"],
+    description:
+      "Crafted with a classic hardbound cover, this sketchbook is built to last. The case binding keeps your pages secure while giving the book a sturdy, timeless form. It opens neatly and stays flat enough for comfortable sketching and writing. Durable on the outside and smooth on the inside — it’s made to travel with you and hold your ideas for years to come.",
+    variants: {
+      create: [
+        {
+          gsm: "50 GSM",
+          price: 0, // base price not used
+          colors: {
+            create: [
+              { name: "COMPACT A3", type: "FORMAT", price:200 },
+              { name: "COMPACT A4", type: "FORMAT", price:300 },
+            ],
           },
-        ],
-      },
+        },
+      ],
     },
-  });
+  },
+});
+
+
 
   console.log("✅ Database seeded correctly");
 }
