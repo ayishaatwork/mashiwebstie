@@ -122,15 +122,17 @@ export default function ProductPage() {
             <div className="product-meta-row">
               <div className="product-badges">
                 {optionList.map((opt) => {
-                  const key = opt.name.toLowerCase().trim();
+                  const colorKey = opt.name.toLowerCase().trim(); // for COLOR
+                  const imageKey =
+                    opt.type === "FORMAT"
+                      ? opt.name.toLowerCase().replace(/\s+/g, "")
+                      : colorKey;
                   const isActive = selectedOption?.name === opt.name;
+                  
 
-                  const imageIdx =
-                    opt.type === "COLOR"
-                      ? product.images.findIndex((img) =>
-                          img.toLowerCase().includes(key)
-                        )
-                      : -1;
+                  const imageIdx = product.images.findIndex((img) =>
+                    img.toLowerCase().includes(imageKey)
+                  );
 
                   return (
                     <div
@@ -141,7 +143,7 @@ export default function ProductPage() {
                       style={
                         opt.type === "COLOR"
                           ? ({
-                              "--swatch-color": COLOR_MAP[key],
+                              "--swatch-color": COLOR_MAP[colorKey],
                             } as React.CSSProperties)
                           : undefined
                       }
@@ -254,3 +256,4 @@ export default function ProductPage() {
     </main>
   );
 }
+
